@@ -43,9 +43,9 @@ def judge(userhand,bothand):
 		
 		if status == 0:
 			message += "結果はあいこでした。"
-		else if status == 1:
+		elif status == 1:
 			message += "結果は負けでした。"	
-		else if status == 2:
+		elif status == 2:
 			message += "結果は勝ちでした。\nおめでとうございます。"
 	return message
 

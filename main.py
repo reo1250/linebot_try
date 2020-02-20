@@ -51,6 +51,15 @@ def judge(userhand,bothand):
 			message += "結果は勝ちでした。\nおめでとうございます。"
 	return message
 
+def createMessages():
+	messages = ["タルタルチキン！", "いいね！", "勝つしかねえので"]
+	send_messages = []
+
+	for message in messages:
+		send_messages.append(TextSendMessage(text=message))
+
+	return send_messages
+
 @app.route("/callback", methods=['POST'])
 def callback():
 	# get X-Line-Signature header value
@@ -76,7 +85,8 @@ def handle_message(event):
 	message = judge(hands_to_int(event.message.text), select_bothand())
 	line_bot_api.reply_message(
 		event.reply_token,
-		TextSendMessage(text=message)
+		#TextSendMessage(text=message)
+		createMessages()
 	)
 
 

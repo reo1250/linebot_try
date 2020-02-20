@@ -51,8 +51,8 @@ def judge(userhand,bothand):
 			message1 += ["結果は勝ちでした！","おめでとうございます！"]
 	return message1
 
-def createMessages(arry):
-	messages = arry
+def createMessages(array):
+	messages = array
 	send_messages = []
 
 	for message in messages:
@@ -78,7 +78,7 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-if myIndex(l,x) == -1:
+if userhand == -1:
 	def response_message(event):
 		hands_list = ["グー", "チョキ", "パー"]
 

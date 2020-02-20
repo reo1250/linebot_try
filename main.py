@@ -54,7 +54,7 @@ def judge(userhand,bothand):
 		if status == 0:
 			message += "結果はあいこでした！\nもっかい！"
 		elif status == 1:
-			message += createMessages()	
+			message = createMessages()	
 		elif status == 2:
 			message += "結果は勝ちでした！\nおめでとうございます！"
 	return message

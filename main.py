@@ -76,7 +76,7 @@ def handle_message(event):
 	message = judge(hands_to_int(event.message.text), select_bothand())
 	line_bot_api.reply_message(
 		event.reply_token,
-		message
+		TextSendMessage(text=message)
 	)
 
 

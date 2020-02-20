@@ -41,7 +41,7 @@ def judge(userhand,bothand):
 		message1 = ["グー、チョキ、パー、をカタカナで入力してください！"]
 	else:
 		status = (userhand - bothand + 3) % 3
-		message1 = ["BOTが出したのは" + hands[bothand] + "！\n"]
+		message1 = ["BOTが出したのは" + hands[bothand] + "！"]
 		
 		if status == 0:
 			message1 += ["結果はあいこでした！","もっかい！"]

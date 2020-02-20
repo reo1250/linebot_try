@@ -140,7 +140,8 @@ def response_message(event):
 
     items = [QuickReplyButton(action=MessageAction(label=f"{hand}", text=f"{hand}")) for hand in hands_list]
 
-    messages = TextSendMessage(quick_reply=QuickReply(items=items))
+    messages = TextSendMessage(text="グー、チョキ、パーのうちどれを出しますか?",
+                               quick_reply=QuickReply(items=items))
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
 

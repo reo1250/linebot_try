@@ -1,4 +1,4 @@
-
+"""
 from flask import Flask, request, abort
 
 from linebot import (
@@ -38,7 +38,7 @@ def select_bothand():
 def judge(userhand,bothand):
 	message = []
 	if userhand == -1:
-		message1 = ["グー、チョキ、パー、をカタカナで入力してください！"]
+		message1 = ["グー、チョキ、パーのうちどれを出しますか?"]
 	else:
 		status = (userhand - bothand + 3) % 3
 		message1 = ["BOTが出したのは" + hands[bothand] + "！"]
@@ -78,6 +78,8 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
+
+
 def handle_message(event):
 	# message = event.message.text                     <--- コメントアウト
 	# message = hands_to_int(event.message.text)       <--- コメントアウト
@@ -138,8 +140,7 @@ def response_message(event):
 
     items = [QuickReplyButton(action=MessageAction(label=f"{hand}", text=f"{hand}")) for hand in hands_list]
 
-    messages = TextSendMessage(text="グー、チョキ、パーのうちどれを出しますか?",
-                               quick_reply=QuickReply(items=items))
+    messages = TextSendMessage(quick_reply=QuickReply(items=items))
 
     line_bot_api.reply_message(event.reply_token, messages=messages)
 
@@ -147,4 +148,4 @@ def response_message(event):
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
-"""
+#"""

@@ -29,10 +29,10 @@ def myIndex(l,x):
 hands = ["グー","チョキ","パー"]
 
 def hands_to_int(userhand):
-	myIndex(hands,userhand)
+	return myIndex(hands,userhand)
 
 def select_bothand():
-	random.randint(0,2)
+	return random.randint(0,2)
 
 def judge(userhand,bothand):
 	if userhand == -1:

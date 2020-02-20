@@ -1,4 +1,4 @@
-"""
+
 from flask import Flask, request, abort
 
 from linebot import (
@@ -35,6 +35,7 @@ def hands_to_int(userhand):
 def select_bothand():
 	return random.randint(0,2)
 
+
 def judge(userhand,bothand):
 	if userhand == -1:
 		message = "グー、チョキ、パー、をカタカナで入力してください。"
@@ -52,36 +53,37 @@ def judge(userhand,bothand):
 
 @app.route("/callback", methods=['POST'])
 def callback():
-    # get X-Line-Signature header value
-    signature = request.headers['X-Line-Signature']
+	# get X-Line-Signature header value
+	signature = request.headers['X-Line-Signature']
 
-    # get request body as text
-    body = request.get_data(as_text=True)
-    app.logger.info("Request body: " + body)
+	# get request body as text
+	body = request.get_data(as_text=True)
+	app.logger.info("Request body: " + body)
 
-    # handle webhook body
-    try:
-        handler.handle(body, signature)
-    except InvalidSignatureError:
-        abort(400)
+	# handle webhook body
+	try:
+		handler.handle(body, signature)
+	except InvalidSignatureError:
+		abort(400)
 
-    return 'OK'
+	return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    # message = event.message.text                     <--- コメントアウト
-    # message = hands_to_int(event.message.text)       <--- コメントアウト
-    # message = select_bothand()                       <--- コメントアウト
-    message = judge(hands_to_int(event.message.text), select_bothand())
-    line_bot_api.reply_message(
-        event.reply_token,
-        TextSendMessage(text=message))
+	# message = event.message.text                     <--- コメントアウト
+	# message = hands_to_int(event.message.text)       <--- コメントアウト
+	# message = select_bothand()                       <--- コメントアウト
+	message = judge(hands_to_int(event.message.text), select_bothand())
+	line_bot_api.reply_message(
+		event.reply_token,
+		message
+	)
 
 
 if __name__ == "__main__":
 #    app.run()
-    port = int(os.getenv("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+	port = int(os.getenv("PORT", 5000))
+	app.run(host="0.0.0.0", port=port)
 """
 
 import os
@@ -135,3 +137,4 @@ def response_message(event):
 if __name__ == "__main__":
     port = int(os.getenv("PORT", 5000))
     app.run(host="0.0.0.0", port=port)
+"""

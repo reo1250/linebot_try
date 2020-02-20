@@ -35,31 +35,30 @@ def hands_to_int(userhand):
 def select_bothand():
 	return random.randint(0,2)
 
-def createMessages():
-	messages = ["結果は負けでした！", "残念…。", "また挑戦してみてね！"]
+def judge(userhand,bothand):
+	message = []
+	if userhand == -1:
+		message1 = ["グー、チョキ、パー、をカタカナで入力してください！"]
+	else:
+		status = (userhand - bothand + 3) % 3
+		message1 = ["BOTが出したのは" + hands[bothand] + "！\n"]
+		
+		if status == 0:
+			message1 += ["結果はあいこでした！","もっかい！"]
+		elif status == 1:
+			message1 += ["結果は負けでした！", "残念…。", "また挑戦してみてね！"]	
+		elif status == 2:
+			message1 += ["結果は勝ちでした！","おめでとうございます！"]
+	return message1
+
+def createMessages(arry):
+	messages = arry
 	send_messages = []
 
 	for message in messages:
 		send_messages.append(TextSendMessage(text=message))
 
 	return send_messages
-
-def judge(userhand,bothand):
-	if userhand == -1:
-		message = "グー、チョキ、パー、をカタカナで入力してください！"
-	else:
-		status = (userhand - bothand + 3) % 3
-		message = "BOTが出したのは" + hands[bothand] + "！\n"
-		
-		if status == 0:
-			message += "結果はあいこでした！\nもっかい！"
-		elif status == 1:
-			message = createMessages()	
-		elif status == 2:
-			message += "結果は勝ちでした！\nおめでとうございます！"
-	return message
-
-
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -86,8 +85,8 @@ def handle_message(event):
 	message = judge(hands_to_int(event.message.text), select_bothand())
 	line_bot_api.reply_message(
 		event.reply_token,
-		TextSendMessage(text=message)
-		#createMessages()
+		#TextSendMessage(text=message)
+		createMessages()
 	)
 
 

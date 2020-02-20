@@ -35,30 +35,31 @@ def hands_to_int(userhand):
 def select_bothand():
 	return random.randint(0,2)
 
-
-def judge(userhand,bothand):
-	if userhand == -1:
-		message = "グー、チョキ、パー、をカタカナで入力してください。"
-	else:
-		status = (userhand - bothand + 3) % 3
-		message = "BOTは" + hands[bothand] + "を出しました。\n"
-		
-		if status == 0:
-			message += "結果はあいこでした。"
-		elif status == 1:
-			message += "結果は負けでした。"	
-		elif status == 2:
-			message += "結果は勝ちでした。\nおめでとうございます。"
-	return message
-
 def createMessages():
-	messages = ["タルタルチキン！", "いいね！", "勝つしかねえので"]
+	messages = ["結果は負けでした！", "残念…。", "また挑戦してみてね！"]
 	send_messages = []
 
 	for message in messages:
 		send_messages.append(TextSendMessage(text=message))
 
 	return send_messages
+
+def judge(userhand,bothand):
+	if userhand == -1:
+		message = "グー、チョキ、パー、をカタカナで入力してください！"
+	else:
+		status = (userhand - bothand + 3) % 3
+		message = "BOTが出したのは" + hands[bothand] + "！\n"
+		
+		if status == 0:
+			message += "結果はあいこでした！\nもっかい！"
+		elif status == 1:
+			message += createMessages()	
+		elif status == 2:
+			message += "結果は勝ちでした！\nおめでとうございます！"
+	return message
+
+
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -85,8 +86,8 @@ def handle_message(event):
 	message = judge(hands_to_int(event.message.text), select_bothand())
 	line_bot_api.reply_message(
 		event.reply_token,
-		#TextSendMessage(text=message)
-		createMessages()
+		TextSendMessage(text=message)
+		#createMessages()
 	)
 
 

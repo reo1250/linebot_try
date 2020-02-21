@@ -80,29 +80,23 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-
-
-if myIndex(l,x) == -1: 　　　　　　　　　　　　　　　　　　　　　　　　　　#←ここが問題。
-	def response_message(event):
-		hands_list = ["グー", "チョキ", "パー"]
-
-		items = [QuickReplyButton(action=MessageAction(label=f"{hand}", text=f"{hand}")) for hand in hands_list]
+def handle_message(event):
+	# message = event.message.text                     <--- コメントアウト
+	# message = hands_to_int(event.message.text)       <--- コメントアウト
+	# message = select_bothand()                       <--- コメントアウト
+	if event.message.text in hands
+		message = judge(hands_to_int(event.message.text), select_bothand())
+		line_bot_api.reply_message(
+			event.reply_token,
+			createMessages(message))
+	
+	else:
+		items = [QuickReplyButton(action=MessageAction(label=f"{hand}", text=f"{hand}")) for hand in hands]
 
 		messages = TextSendMessage(text="グー、チョキ、パーのうちどれを出しますか?",quick_reply=QuickReply(items=items))
 
 		line_bot_api.reply_message(event.reply_token, messages=messages)
-
-elif:
-	def handle_message(event):
-		# message = event.message.text                     <--- コメントアウト
-		# message = hands_to_int(event.message.text)       <--- コメントアウト
-		# message = select_bothand()                       <--- コメントアウト
-		message = judge(hands_to_int(event.message.text), select_bothand())
-		line_bot_api.reply_message(
-			event.reply_token,
-			#TextSendMessage(text=message)
-			createMessages(message)
-		)
+		
 
 
 if __name__ == "__main__":

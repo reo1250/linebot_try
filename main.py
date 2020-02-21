@@ -78,7 +78,7 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-if userhand == -1:
+if myIndex() == -1: 　　　　　　　　　　　　　　　　　　　　　　　　　　#←ここが問題。
 	def response_message(event):
 		hands_list = ["グー", "チョキ", "パー"]
 

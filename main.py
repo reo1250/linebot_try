@@ -21,6 +21,8 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
+
+
 def myIndex(l,x):
 	if x in l:
 		return l.index(x)
@@ -78,7 +80,9 @@ def callback():
 	return 'OK'
 
 @handler.add(MessageEvent, message=TextMessage)
-if myIndex() == -1: 　　　　　　　　　　　　　　　　　　　　　　　　　　#←ここが問題。
+
+
+if myIndex(l,x) == -1: 　　　　　　　　　　　　　　　　　　　　　　　　　　#←ここが問題。
 	def response_message(event):
 		hands_list = ["グー", "チョキ", "パー"]
 

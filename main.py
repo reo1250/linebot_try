@@ -50,7 +50,7 @@ def judge(userhand,bothand):
 		elif status == 1:
 			message1 += ["結果は負けでした！", "残念…。", "また挑戦してみてね！"]	
 		elif status == 2:
-			message1 += ["結果は勝ちでした！","おめでとうございます！"]
+			message1 += ["結果は勝ちでした！","よかったね！"]
 	return message1
 
 def createMessages(array):

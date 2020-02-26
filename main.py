@@ -24,7 +24,7 @@ handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 def judgeTime():
 	
-	dt = datetime(2020,2,26,16,0,0,0)
+	dt = datetime.datetime(2020,2,26,16,0,0,0)
 	
 	message = str(dt.timestamp())
 

@@ -34,7 +34,7 @@ def createmessage(time):
 	
 	currenttime = str(datetime.datetime.fromtimestamp(int(float(time))))
 
-	message = "現在時刻は"　+ currenttime + "です。"
+	message = currenttime
 
 	return message
 

@@ -22,9 +22,13 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
+
+
 def createmessage(time):
 	
-	message = str(datetime.datetime.fromtimestamp(int(float(time))))
+	currenttime = str(datetime.datetime.fromtimestamp(int(float(time))))
+
+	message = "現在時刻は"　+ currenttime + "です。"
 
 	return message
 

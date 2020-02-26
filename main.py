@@ -2,14 +2,15 @@
 from flask import Flask, request, abort
 
 from linebot import (
-    LineBotApi, WebhookHandler
+	LineBotApi, WebhookHandler
 )
 from linebot.exceptions import (
-    InvalidSignatureError
+	InvalidSignatureError
 )
 from linebot.models import (
-    MessageEvent, TextMessage, QuickReplyButton, MessageAction, QuickReply, TextSendMessage,
+	MessageEvent, TextMessage, QuickReplyButton, MessageAction, QuickReply, TextSendMessage,
 )
+from datetime import datetime
 import os
 import random
 
@@ -22,45 +23,6 @@ line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 
-
-def myIndex(l,x):
-	if x in l:
-		return l.index(x)
-	else:
-		return -1
-
-hands = ["グー","チョキ","パー"]
-
-def hands_to_int(userhand):
-	return myIndex(hands,userhand)
-
-def select_bothand():
-	return random.randint(0,2)
-
-def judge(userhand,bothand):
-	message = []
-	if userhand == -1:
-		message1 = ["グー、チョキ、パーのうちどれを出しますか?"]
-	else:
-		status = (userhand - bothand + 3) % 3
-		message1 = ["BOTが出したのは" + hands[bothand] + "！"]
-		
-		if status == 0:
-			message1 += ["結果はあいこでした！","もっかい！"]
-		elif status == 1:
-			message1 += ["結果は負けでした！", "残念…。", "また挑戦してみてね！"]	
-		elif status == 2:
-			message1 += ["結果は勝ちでした！","よかったね！"]
-	return message1
-
-def createMessages(array):
-	messages = array
-	send_messages = []
-
-	for message in messages:
-		send_messages.append(TextSendMessage(text=message))
-
-	return send_messages
 
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -81,22 +43,11 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-	# message = event.message.text                     <--- コメントアウト
-	# message = hands_to_int(event.message.text)       <--- コメントアウト
-	# message = select_bothand()                       <--- コメントアウト
-	if event.message.text in hands:
-		message = judge(hands_to_int(event.message.text), select_bothand())
-		line_bot_api.reply_message(
-			event.reply_token,
-			createMessages(message))
 	
-	else:
-		items = [QuickReplyButton(action=MessageAction(label=f"{hand}", text=f"{hand}")) for hand in hands]
-
-		messages = TextSendMessage(text="グー、チョキ、パーのうちどれを出しますか?",quick_reply=QuickReply(items=items))
-
-		line_bot_api.reply_message(event.reply_token, messages=messages)
-		
+	message = event.timestamp
+	line_bot_api.reply_message(
+		event.reply_token,
+		message)		
 
 
 if __name__ == "__main__":

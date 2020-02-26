@@ -43,7 +43,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	
-	message = datetime.fromtimestamp(int(float(event.timestamp)))
+	message = datetime.fromtimestamp(event.timestamp)
 	line_bot_api.reply_message(
 		event.reply_token,
 		TextSendMessage(text=message))		

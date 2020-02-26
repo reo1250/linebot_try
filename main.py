@@ -10,10 +10,10 @@ from linebot.exceptions import (
 from linebot.models import (
 	MessageEvent, TextMessage, QuickReplyButton, MessageAction, QuickReply, TextSendMessage,
 )
-from datetime import datetime
+
 import os
 import random
-
+import datetime
 app = Flask(__name__)
 
 #環境変数取得
@@ -42,8 +42,8 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-	
-	message = datetime.fromtimestamp(int(event.timestamp / 1000))
+	#time = event.timestamp / 1000
+	message = datetime.now() #fromtimestamp(int(float(time)))
 	line_bot_api.reply_message(
 		event.reply_token,
 		TextSendMessage(text=message))		

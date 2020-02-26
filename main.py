@@ -22,10 +22,18 @@ LINE_CHANNEL_SECRET = os.environ["LINE_CHANNEL_SECRET"]
 line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
-def judgeTime():
+dt = datetime.datetime(2020,2,26,16,0,0,0).timestamp()
+
+def judgeTime(time):
 	
-	message = datetime.datetime(2020,2,26,16,0,0,0).timestamp()
+	if dt < time:
+		message = "遅刻"
 	
+	elif dt == time:
+		message = "ジャスト"
+	
+	elif dt > time:
+		message = "順調"
 
 	return message
 
@@ -57,7 +65,7 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
 	time = event.timestamp / 1000
-	message = judgeTime()
+	message = judgeTime(time)
 
 	line_bot_api.reply_message(
 		event.reply_token,

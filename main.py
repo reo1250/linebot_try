@@ -65,7 +65,7 @@ def callback():
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-	time = (event.timestamp - 9*3600) / 1000
+	time = event.timestamp / 1000 - 9*3600
 	message = judgeTime(time)
 
 	line_bot_api.reply_message(

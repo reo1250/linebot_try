@@ -23,7 +23,7 @@ line_bot_api = LineBotApi(LINE_CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(LINE_CHANNEL_SECRET)
 
 
-dt = datetime.datetime(2020,2,26,20,0,0,0).timestamp()
+dt = datetime.datetime(2020,2,26,5,0,0,0).timestamp()
 
 def judgeTime(time):
 	

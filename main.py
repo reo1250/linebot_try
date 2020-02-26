@@ -28,13 +28,13 @@ dt = datetime.datetime(2020,2,26,20,0,0,0).timestamp()
 def judgeTime(time):
 	
 	if dt < time:
-		message = '遅刻' + str(int(dt) - int(time))
+		message = '遅刻'
 	
 	elif dt == time:
-		message = "ジャスト" + str(int(dt) - int(time))
+		message = "ジャスト"
 	
 	elif dt > time:
-		message = "順調" + str(int(dt) - int(time))
+		message = "順調"
 
 	return message
 
